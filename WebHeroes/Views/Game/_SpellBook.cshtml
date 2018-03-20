@@ -1,0 +1,64 @@
+﻿@using WebHeroes.Models;
+@using Action = WebHeroes.Code.Action;
+@model List<Action>
+@{
+    string ErrorMessage = ViewBag.ErrorMessage;
+}
+<style>
+    .spell-book {
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin: 10px;
+    }
+
+        .spell-book tr {
+        }
+
+        .spell-book td {
+            border: 1px solid black;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+        }
+
+            .spell-book td:hover {
+                border: 1px solid blue;
+            }
+
+            .spell-book td.selected {
+                background-color: blue;
+            }
+</style>
+
+
+
+<table class="spell-book">
+    @foreach (var action in Model)
+    {
+        <tr>
+            <td class="spell" data-name="@action.Name">
+                @action.Name
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="spell-description">
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.spell').click(function (e) {
+            $('.spell.selected').removeClass("selected");
+            $(this).addClass("selected");
+            $.ajax({
+                url: '@Url.Action("SelectSpell", "Game")?name=' + $(this).data("name")
+            }).success(function (data) {
+                $('.spell-description').empty();
+                $('.spell-description').append(data);
+            })
+            e.stopPropagation();
+        });
+    });
+</script>

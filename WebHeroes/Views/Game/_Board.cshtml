@@ -1,0 +1,84 @@
+﻿@using WebHeroes.Entities;
+@using WebHeroes.Code;
+@using WebHeroes.Playground;
+@model Scene
+@{
+    var Turn = ViewBag.Turn as Turn;
+    string ErrorMessage = ViewBag.ErrorMessage;
+}
+<style>
+    .board-table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin: 10px;
+    }
+
+        .board-table tr {
+        }
+
+        .board-table td {
+            border: 1px solid black;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+        }
+
+            .board-table td:hover {
+                border: 1px solid red;
+            }
+
+            .board-table td.selected {
+                background-color: red;
+            }
+
+    .error-message p {
+        color: red;
+    }
+</style>
+
+<table class="board-table">
+    @{int y = 0; }
+    @foreach (var row in Model.Board.Fields)
+    {
+        int x = 0;
+        <tr>
+            @foreach (var field in row)
+            {
+                var entity = Model.Board.BaseEntities.FindByPosition(new Position(x, y));
+                <td class="boardCell" data-id="@(entity!=null?entity.Id:0)" data-x="@x" data-y="@y">
+                    @field.Type
+                    @if (entity != null)
+                    {
+                        <br>
+                        @entity.Type;
+                    }
+                </td>
+                x++;
+            }
+        </tr>
+        y++;
+    }
+</table>
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="error-message">
+        <p>@ErrorMessage</p>
+    </div>
+}
+<table class="turn-table">
+    <tr>
+        <td>
+            Action Points : @Turn.ActionPoints / @Turn.MaxActionPoints
+        </td>
+    </tr>
+</table>
+<script>
+    $(document).ready(function () {
+        $('.boardCell').click(function (e) {
+            $('.boardCell.selected').removeClass("selected");
+            $(this).addClass("selected");
+            $('#boardArea').load('@Url.Action("ClickCell", "Game")?x=' + $(this).data("x") + '&y=' + $(this).data("y"))
+            e.stopPropagation();
+        });
+    });
+</script>

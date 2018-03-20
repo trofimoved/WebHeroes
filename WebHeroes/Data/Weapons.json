@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Axe",
+    "Damage": 20,
+    "ActionPoints": 2,
+    "Range": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Sword",
+    "Damage": 10,
+    "ActionPoints": 1,
+    "Range": 1
+  }
+]

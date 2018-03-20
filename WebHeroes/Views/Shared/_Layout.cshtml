@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body{
+            vertical-align:top;
+        }
+    </style>
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+        <table>
+            <tr>
+                <td rowspan="2">
+                    <h2>Spell Book</h2>
+                    <div id="spellBookArea">
+                    </div>
+                </td>
+                <td rowspan="2">
+                    <h2>Board</h2>
+                    <div id="boardArea" class="main-table">
+                    </div>
+                </td>
+                <td style="width:200px">
+                    <h2>Inventory</h2>
+                    <div id="inventoryArea">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>Status</h2>
+                    <div id="statusArea">
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input id="skip" type="button" value="Skip">
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).keypress(function (e) {
+            var keyValue = String.fromCharCode(e.keyCode);
+            $('#boardArea').load('@Url.Action("Input","Game")?input=' + keyValue)
+        });
+
+        $(document).ready(function () {
+            $('#boardArea').load('@Url.Action("Input", "Game")');
+            $('#spellBookArea').load('@Url.Action("SpellBook", "Game")')
+
+            $('#skip').click(function () {
+                $('#boardArea').load('@Url.Action("Input","Game")?input=skip')
+            })
+        });
+    </script>
+</body>
+</html>
