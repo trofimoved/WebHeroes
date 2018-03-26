@@ -31,6 +31,7 @@ namespace WebHeroes.Entities
                 Damage = 0,
                 Name = "Fists",
                 Description = "Just bare fists",
+                Range = 1,
                 Equped = true,
                 Cost = 0
             });

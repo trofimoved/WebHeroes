@@ -6,54 +6,92 @@
     var Turn = ViewBag.Turn as Turn;
     string ErrorMessage = ViewBag.ErrorMessage;
 }
+<head>
+
+</head>
 <style>
     .board-table {
-        border: 1px solid black;
-        border-collapse: collapse;
-        margin: 10px;
+
     }
 
         .board-table tr {
         }
 
         .board-table td {
-            border: 1px solid black;
-            height: 50px;
-            width: 50px;
+            border: 2px solid black;
+            border-radius:50%;
+            height: 70px;
+            width: 35px;
             text-align: center;
+            margin-bottom:-5px;
         }
 
-            .board-table td:hover {
-                border: 1px solid red;
-            }
+    .half-cell {
+        border:none !important;
+        width: 35px !important;
+    }
 
-            .board-table td.selected {
-                background-color: red;
-            }
+    .half-row td {
+        border:none !important;
+        height: 1px !important;
+    }
+
+    .board-table td:hover {
+        border: 2px solid red;
+    }
+
+    .board-table td.selected {
+        background-color: red;
+    }
 
     .error-message p {
         color: red;
     }
-</style>
 
+    .field-grass{
+        background-color:greenyellow;
+    }
+
+    .field-stone{
+        background-color:gray;
+    }
+</style>
 <table class="board-table">
     @{int y = 0; }
+    <tr class="half-row">
+        @for (int i = 0; i < 11*2; i++)
+        {
+            <td></td>
+        }
+    </tr>
     @foreach (var row in Model.Board.Fields)
     {
-        int x = 0;
+        int x = y % 2;
         <tr>
+            @if (y % 2 == 1)
+            {
+                <td class="half-cell"></td>
+            }
             @foreach (var field in row)
             {
-                var entity = Model.Board.BaseEntities.FindByPosition(new Position(x, y));
-                <td class="boardCell" data-id="@(entity!=null?entity.Id:0)" data-x="@x" data-y="@y">
-                    @field.Type
-                    @if (entity != null)
-                    {
-                        <br>
-                        @entity.Type;
-                    }
-                </td>
-                x++;
+                if (field != null)
+                {
+                    var entity = Model.Board.BaseEntities.FindByPosition(new Position(x, y));
+                    <td colspan="2" class="boardCell field-@field.Type.ToString().ToLower()" data-id="@(entity!=null?entity.Id:0)" data-x="@x" data-y="@y">
+                        <div class="hexagon"></div>
+                        [@x @y] @field.Weight
+                        @if (entity != null)
+                        {
+                            <br>
+                            @entity.Type
+                        }
+                    </td>
+                    x += 2;
+                }
+            }
+            @if (y % 2 == 0)
+            {
+                <td class="half-cell"></td>
             }
         </tr>
         y++;

@@ -28,8 +28,8 @@ namespace WebHeroes.Code
         {
             int nextIndex = _currentIndex == _entities.Count - 1 ? 0 : _currentIndex + 1;
             _turn.TurnTo(_entities[nextIndex]);
-            _turn.Start();
             _currentIndex = nextIndex;
+            _turn.Start();
         }
 
         public GameLoop()

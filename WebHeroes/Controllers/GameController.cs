@@ -47,6 +47,13 @@ namespace WebHeroes.Controllers
         {
             Position inputPosition = new Position(x, y);
             string spellName = ActionName;
+            if (spellName == null)
+            {
+                var entity = GameLoop.Scene.Entities.FindByPosition(inputPosition);
+                if(entity != null)
+                return RedirectToAction("GetStatus", "Status", new { id = entity.Id});
+            }
+                
             try
             {
                 GameLoop.Turn.ProcessInput(ActionName, inputPosition);

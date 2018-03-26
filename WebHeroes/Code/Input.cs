@@ -38,15 +38,12 @@ namespace WebHeroes.Code
     {
         None,
         Idle,
-        Up,
-        Down,
+        UpLeft,
+        UpRight,
         Left,
         Right,
-        Action1,
-        Action2,
-        Action3,
-        Action4,
-        Action5,
+        DownLeft,
+        DownRight,
 
         Skip = 1000
     }

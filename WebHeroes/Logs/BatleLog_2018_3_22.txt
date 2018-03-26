@@ -1,0 +1,79 @@
+Hello
+And
+Welcome
+Player  1 deal 20 damege to 2
+*------*
+Enemy  2 get 20 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Player  1 deal 20 damege to 2
+*------*
+Enemy  2 get 20 damage
+*------*
+Player  1 deal 20 damege to 2
+*------*
+Enemy  2 get 20 damage
+*------*
+Player  1 deal 20 damege to 2
+*------*
+Enemy  2 get 20 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*
+Enemy  2 deal 10 damege to 1
+*------*
+Player  1 get 10 damage
+*------*

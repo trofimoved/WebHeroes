@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\hexagons.css" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -193,6 +194,7 @@
     <Compile Include="Code\Actions\ActionExtensions.cs" />
     <Compile Include="Code\Exceptions.cs" />
     <Compile Include="Code\GameLoop.cs" />
+    <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Position.cs" />
     <Compile Include="Code\Turn.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -206,13 +208,14 @@
     </Compile>
     <Compile Include="Data\ItemsData.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Playgrond\Board.cs" />
-    <Compile Include="Playgrond\BaseTerrain.cs" />
+    <Compile Include="Playground\Board.cs" />
+    <Compile Include="Playground\BaseTerrain.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Code\Input.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Invetory.cs" />
-    <Compile Include="Playgrond\Scene.cs" />
+    <Compile Include="Playground\PathFinding.cs" />
+    <Compile Include="Playground\Scene.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

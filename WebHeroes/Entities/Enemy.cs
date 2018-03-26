@@ -24,7 +24,7 @@ namespace WebHeroes.Entities
 
     public class Enemy : EnemyBase
     {
-        public virtual IAction AIAction()
+        public virtual IAction AIAction(WebHeroes.Playground.Board board)
         {
             return new Action(0, this);
         }

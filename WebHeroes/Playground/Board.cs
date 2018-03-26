@@ -7,12 +7,17 @@ using WebHeroes.Entities;
 
 namespace WebHeroes.Playground
 {
-    public class Board
+    public interface WeightedGraph<L>
     {
-        
+        double Cost(Position a, Position b);
+        IEnumerable<Position> Neighbors(Position id);
+    }
+    public class Board : WeightedGraph<Position>
+    {
+
         private BaseTerrain[][] _fields;
         public BaseTerrain[][] Fields { get { return _fields; } }
-        
+
         private List<BaseEntity> _baseEntities;
         public List<BaseEntity> BaseEntities { get { return _baseEntities; } }
 
@@ -36,7 +41,7 @@ namespace WebHeroes.Playground
             }
         }
 
-        public BaseTerrain this[int i, int j]
+        private BaseTerrain this[int i, int j]
         {
             get
             {
@@ -44,7 +49,7 @@ namespace WebHeroes.Playground
                 {
                     return _fields[i][j];
                 }
-                catch(IndexOutOfRangeException ex)
+                catch (IndexOutOfRangeException ex)
                 {
                     return new Outer();
                 }
@@ -57,7 +62,7 @@ namespace WebHeroes.Playground
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    
+
                 }
             }
         }
@@ -91,6 +96,41 @@ namespace WebHeroes.Playground
 
         #endregion
 
+        #region WeightedGraph
+
+        public IEnumerable<Position> Neighbors(Position id)
+        {
+            Position[] DIRS = new Position[]
+            {
+                new Position(1, 1),
+                new Position(1, -1),
+                new Position(2, 0),
+                new Position(-2, 0),
+                new Position(-1, 1),
+                new Position(-1, -1),
+            };
+
+            foreach (var dir in DIRS)
+            {
+                Position next = new Position(id.x + dir.x, id.y + dir.y);
+                if (!this[next].Impassible)
+                {
+                    yield return next;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        public double Cost(Position a, Position b)
+        {
+            return 1;
+        }
+
+        #endregion
+
         /// <summary>
         /// Генерация локации
         /// </summary>
@@ -102,12 +142,16 @@ namespace WebHeroes.Playground
             _fields = new BaseTerrain[i][];
             for (int row = 0; row < i; row++)
             {
-                _fields[row] = new BaseTerrain[j];
-                for (int field = 0; field < j; field++)
+                _fields[row] = new BaseTerrain[j*2];
+                int oddRow = row % 2;
+                for (int field = oddRow; field < j*2; field += 2)
                 {
                     _fields[row][field] = new BaseTerrain();
                 }
             }
+            _fields[4][4] = new BaseTerrain() { Impassible = true, Type = TerrainType.Stone };
+            //_fields[4][5] = new BaseTerrain() { Impassible = true, Type = TerrainType.Stone };
+            _fields[4][6] = new BaseTerrain() { Impassible = true, Type = TerrainType.Stone };
         }
 
         public Board(PlayerBase player, int i = 10, int j = 10) : this(i, j)

@@ -36,6 +36,17 @@ namespace WebHeroes.Code
         public void Start()
         {
             _actionPoints = _entity.Status.ActionPoints;
+
+            PathFinding pf = new PathFinding();
+            pf.AStarSearch(_gameLoop.Scene.Board, 
+                _gameLoop.Scene.Entities.First(x => x.Type == EntityType.Player).Position, 
+                _gameLoop.Scene.Entities.First(x => x.Type == EntityType.Enemy).Position);
+
+            foreach(var positionCost in pf.costSoFar)
+            {
+                _gameLoop.Scene.Board[positionCost.Key].Weight = positionCost.Value;
+            }
+
             //запустить наложенные эфекты
             //foreach (var effect in _entity.Status.Effects)
             //{
@@ -49,10 +60,11 @@ namespace WebHeroes.Code
             {
                 var enemy = _entity as Entities.Enemies.SkeletonSwordsman;
                 enemy.SetTarget(_gameLoop.Scene.Entities.FirstOrDefault(x => x.Type == EntityType.Player));
-                while(true)
+                while(_actionPoints > 0)
                 {
-                    ExecuteAction(enemy.AIAction());
+                    ExecuteAction(enemy.AIAction(_gameLoop.Scene.Board));
                 }
+                Over();
                 //запуск бота
             }
         }
@@ -96,8 +108,8 @@ namespace WebHeroes.Code
         {
             if (_actionPoints > 0 && action.ExecuteAction())
                 _actionPoints -= action.ActionPoints();
-            //если ходит враг, автоматически скипаем в конце хода
-            if (_actionPoints <= 0 && (autoskip || _entity.Type == EntityType.Enemy))
+
+            if (_actionPoints <= 0 && autoskip)
                 Over();
         }
 

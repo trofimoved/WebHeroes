@@ -56,6 +56,7 @@ namespace WebHeroes.Entities
         public virtual void GetDamage(int points)
         {
             this.Status.Health -= points;
+            Logger.Write($"{this.Type} {this.Name} {this.Id} get {points} damage");
             if (this.Status.Health <= 0)
             {
                 this.Die();
@@ -87,7 +88,7 @@ namespace WebHeroes.Entities
             Status = new Status();
             Inventory = new Inventory();
             Actions = new List<Action>();
-            Actions.Add(new Attack(1, this) { BindInputKey = InputKey.Action1});
+            Actions.Add(new Attack(1, this) { });
             Status.Effects = new List<Effect>();
         }
     }
@@ -150,10 +151,15 @@ namespace WebHeroes.Entities
             caughtEntity = null;
             switch (inputKey)
             {
-                case InputKey.Up: newPosition.y -= 1; break;
-                case InputKey.Down: newPosition.y += 1; break;
-                case InputKey.Left: newPosition.x -= 1; break;
-                case InputKey.Right: newPosition.x += 1; break;
+                case InputKey.UpLeft: newPosition.y -= 1; newPosition.x -=1; break;
+                case InputKey.UpRight: newPosition.y -= 1; newPosition.x += 1; break;
+
+                case InputKey.Left: newPosition.x -= 2; break;
+                case InputKey.Right: newPosition.x += 2; break;
+
+                case InputKey.DownLeft: newPosition.y += 1; newPosition.x -= 1; break;
+                case InputKey.DownRight: newPosition.y += 1; newPosition.x += 1; break;
+
                 default: break;
             }
             if (board[newPosition].Impassible)

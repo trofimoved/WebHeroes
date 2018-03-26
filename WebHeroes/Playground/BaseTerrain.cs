@@ -15,6 +15,7 @@ namespace WebHeroes.Playground
         public Position Position { get; set; }
         public bool Impassible { get; set; }
         public TerrainType Type { get; set; }
+        public double Weight { get; set; }
     }
     public class Terrain : BaseTerrain
     {

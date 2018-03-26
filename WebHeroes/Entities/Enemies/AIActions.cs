@@ -16,16 +16,17 @@ namespace WebHeroes.Actions.AIActions
             if (Math.Abs(delta.x) > Math.Abs(delta.y))
             {
                 if (delta.x > 0)
-                    return InputKey.Down;
+                    return InputKey.Left;
                 else
-                    return InputKey.Up;
+                return InputKey.Right;
             }
             else
             {
                 if (delta.y > 0)
-                    return InputKey.Right;
+                    return InputKey.Up;
                 else
-                    return InputKey.Left;
+                    return InputKey.Down;
+
             }
             return InputKey.None;
         }

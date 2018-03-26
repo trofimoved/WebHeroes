@@ -50,7 +50,7 @@ namespace WebHeroes.Actions
 
         public string Name { get; set; }
         public string Discription { get; set; }
-        public int Range { get; set; }
+        public virtual int Range { get; set; }
         //??
         public InputKey BindInputKey { get; set; }
 
@@ -124,7 +124,6 @@ namespace WebHeroes.Actions
                 ((BaseEntity)_executor).MoveTo(_board, newPosition);
                 return true;
             }
-
             return false;
         }
 
@@ -144,15 +143,17 @@ namespace WebHeroes.Actions
             if (currentRange > _executor.Inventory.EquipedWeapon.Range)
                 throw new Exceptions.CustomException("Цель вне зоны поражения");
             var damage = _executor.Inventory.EquipedWeapon.Damage;
+            Logger.Write($"{_executor.Type} {_executor.Name} {_executor.Id} deal {damage} damege to {_target.Name}{_target.Id}");
             _target.GetDamage(damage);
             return true;
         }
 
+        public override int Range { get { return _executor.Inventory.EquipedWeapon.Range; } }
+
         public Attack(int AP, Entity entity) : base(AP, entity)
         {
             Name = "Attack";
-            Discription = "Attack whit your weapon";
-
+            Discription = "Attack with your weapon";
             NeedTarget = true;
         }
     }
